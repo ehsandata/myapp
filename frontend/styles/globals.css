@@ -65,7 +65,7 @@ input:focus {
   background: rgba(255,255,255,0.12);
 }
 
-button[type="submit"] {
+button[type="submit"], .form-button {
   background: linear-gradient(90deg, #3b82f6 40%, #6366f1 100%);
   color: #fff;
   font-weight: 700;

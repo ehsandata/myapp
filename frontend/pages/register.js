@@ -65,6 +65,7 @@ export default function Register() {
         >
           {loading ? 'Registering...' : 'Register'}
         </button>
+        <hr className="form-divider" />
         <div className="text-center mt-2 text-sm">
           Already have an account?{' '}
           <Link href="/login" className="form-link">Login</Link>

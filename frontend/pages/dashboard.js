@@ -34,7 +34,11 @@ export default function Dashboard() {
         <div className="mb-2 text-lg font-semibold">Welcome, {user.username || user.email}!</div>
         <div className="mb-2 text-base text-gray-300">Email: <span className="text-white">{user.email}</span></div>
         <div className="mb-4 text-base text-gray-300">Login time: <span className="text-white">{loginTime}</span></div>
-        <button type="button" onClick={handleLogout} className="bg-red-600 hover:bg-red-500 transition px-6 py-2 rounded font-semibold text-white mt-2" style={{width:'180px',maxWidth:'100%'}}>
+        <button
+          type="button"
+          onClick={handleLogout}
+          className="form-button mt-2"
+        >
           Logout
         </button>
       </div>
