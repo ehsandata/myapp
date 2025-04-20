@@ -16,7 +16,8 @@ export default function Register() {
     setSuccess('');
     setLoading(true);
     try {
-      const res = await axios.post('http://localhost:4000/api/register', { username, email, password });
+      const apiBase = process.env.NEXT_PUBLIC_API_BASE || 'http://localhost:4000';
+      const res = await axios.post(`${apiBase}/api/register`, { username, email, password });
       setSuccess(res.data.message);
     } catch (err) {
       setError(err.response?.data?.message || 'Registration failed');
