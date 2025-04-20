@@ -40,7 +40,7 @@ export default function Home() {
           <h2 className="form-title">{success === 'Login successful!' ? 'Just a Second...' : 'Sign in to your account'}</h2>
         </div>
         {error && <div className="alert alert-error">{error}</div>}
-        {success === 'Login successful!' ? (
+        {success === 'Login successful' ? (
           <div className="login-success-message">{success}</div>
         ) : (
           <>
