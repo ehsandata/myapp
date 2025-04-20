@@ -34,6 +34,23 @@ main {
   flex-direction: column;
   align-items: center;
 }
+
+@media (max-width: 480px) {
+  .glass-card {
+    max-width: 98vw;
+    padding: 1.3rem 0.6rem 1.2rem 0.6rem;
+  }
+  input[type="email"], input[type="password"], input[type="text"] {
+    max-width: 98vw;
+    font-size: 0.98rem;
+    padding: 0.7rem 0.7rem;
+  }
+  button[type="submit"], .form-button {
+    max-width: 98vw;
+    font-size: 1.01rem;
+    padding: 0.7rem 0;
+  }
+}
 .glass-card:hover {
   box-shadow: 0 12px 36px 0 rgba(31, 38, 135, 0.52);
 }
