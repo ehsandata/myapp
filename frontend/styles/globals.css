@@ -157,7 +157,7 @@ button:disabled {
 @media (max-width: 500px) {
   .glass-card {
     padding: 1.5rem 0.7rem 1.7rem 0.7rem;
-    max-width: 98vw;
+    max-width: 78vw;
   }
   .form-title {
     font-size: 1.5rem;
