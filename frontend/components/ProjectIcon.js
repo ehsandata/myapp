@@ -2,7 +2,7 @@ export default function ProjectIcon({ type = 'login', style = {}, width = 48, he
   // In the future, you can switch icons based on `type`.
   if (type === 'login') {
     return (
-      <span style={{ ...style, display: 'inline-block' }}>
+      <span style={{ ...style, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
         <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width={width} height={height} viewBox="0 0 128 128">
           <path fill="#fff" d="M101.1,105.6C93.7,92.7,79.9,84,64,84h0c-15.9,0-29.7,8.7-37.1,21.6L27,109h74L101.1,105.6z"></path>
           <path fill="#444b54" d="M78.8,89.7c-0.3,0-0.7-0.1-1-0.2c-4.4-1.6-9-2.5-13.8-2.5c-1.7,0-3-1.3-3-3s1.3-3,3-3c5.5,0,10.8,1,15.9,2.8c1.6,0.6,2.3,2.3,1.8,3.9C81.2,88.9,80,89.7,78.8,89.7z"></path>
@@ -17,7 +17,7 @@ export default function ProjectIcon({ type = 'login', style = {}, width = 48, he
   }
   if (type === 'register') {
     return (
-      <span style={{ ...style, display: 'inline-block' }}>
+      <span style={{ ...style, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
         <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width={width} height={height} viewBox="0 0 50 50">
           <path d="M 25.5 9 C 21.364 9 18 12.589 18 17 C 18 21.411 21.364 25 25.5 25 C 29.636 25 33 21.411 33 17 C 33 12.589 29.636 9 25.5 9 z M 25.5 10 C 29.084 10 32 13.14 32 17 C 32 20.86 29.084 24 25.5 24 C 21.916 24 19 20.86 19 17 C 19 13.14 21.916 10 25.5 10 z M 25.277344 28.330078 C 18.397344 28.330078 12.417438 31.988641 10.398438 37.431641 C 9.7404375 39.202641 11.116969 41 12.917969 41 L 31.435547 41 C 31.320547 40.675 31.220391 40.344 31.150391 40 L 12.917969 40 C 11.584969 40 11.043891 38.649297 11.337891 37.779297 C 13.063891 32.674297 18.813344 29.330078 25.277344 29.330078 C 28.812344 29.330078 32.032453 30.370047 34.564453 32.123047 C 34.901453 31.914047 35.251094 31.728219 35.621094 31.574219 C 32.848094 29.531219 29.213344 28.330078 25.277344 28.330078 z M 38.5 32 C 34.91 32 32 34.91 32 38.5 C 32 42.09 34.91 45 38.5 45 C 42.09 45 45 42.09 45 38.5 C 45 34.91 42.09 32 38.5 32 z M 38.5 34.5 C 38.776 34.5 39 34.724 39 35 L 39 38 L 42 38 C 42.276 38 42.5 38.224 42.5 38.5 C 42.5 38.776 42.276 39 42 39 L 39 39 L 39 42 C 39 42.276 38.776 42.5 38.5 42.5 C 38.224 42.5 38 42.276 38 42 L 38 39 L 35 39 C 34.724 39 34.5 38.776 34.5 38.5 C 34.5 38.224 34.724 38 35 38 L 38 38 L 38 35 C 38 34.724 38.224 34.5 38.5 34.5 z"></path>
         </svg>
@@ -26,7 +26,7 @@ export default function ProjectIcon({ type = 'login', style = {}, width = 48, he
   }
   if (type === 'dashboard') {
     return (
-      <span style={{ ...style, display: 'inline-block' }}>
+      <span style={{ ...style, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
         <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width={width} height={height} viewBox="0 0 128 128">
           <path fill="#fff" d="M124,127H4V14C4,8.5,8.5,4,14,4h100c5.5,0,10,4.5,10,10V127z"></path>
           <path fill="#444b54" d="M4,127c-1.7,0-3-1.3-3-3V41c0-1.7,1.3-3,3-3s3,1.3,3,3v83C7,125.7,5.7,127,4,127z"></path>
