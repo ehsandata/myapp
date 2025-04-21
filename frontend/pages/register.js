@@ -3,6 +3,10 @@ import axios from 'axios';
 import Link from 'next/link';
 import ProjectIcon from '../components/ProjectIcon';
 
+import { PasswordRules } from '../components/Functions';
+
+
+
 export default function Register() {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
@@ -62,6 +66,7 @@ export default function Register() {
           onChange={e => setPassword(e.target.value)}
           required
         />
+        <PasswordRules password={password} />
         <button
           type="submit"
           disabled={loading}
