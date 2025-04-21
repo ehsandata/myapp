@@ -34,6 +34,11 @@ export function PasswordRules({ password }) {
   const [currentRuleIdx, setCurrentRuleIdx] = useState(0);
   const [visible, setVisible] = useState(false);
 
+  // Reorder rules: missing first, then accepted
+  const missingRules = rules.filter(r => !r.valid);
+  const acceptedRules = rules.filter(r => r.valid);
+  const displayRules = [...missingRules, ...acceptedRules];
+
   useEffect(() => {
     if (!password) {
       setCurrentRuleIdx(0);
@@ -46,7 +51,7 @@ export function PasswordRules({ password }) {
       setVisible(false);
       setTimeout(() => {
         setCurrentRuleIdx(idx => {
-          if (idx < rules.length - 1) {
+          if (idx < displayRules.length - 1) {
             setVisible(true);
             return idx + 1;
           } else {
@@ -57,7 +62,7 @@ export function PasswordRules({ password }) {
       }, 400); // fade out duration
     }, 2000);
     return () => clearInterval(interval);
-  }, [password]);
+  }, [password, missingRules.length, acceptedRules.length]);
 
   if (!password) return null;
 
@@ -73,7 +78,7 @@ export function PasswordRules({ password }) {
   }
 
   // Always show the first rule immediately when typing starts
-  const rule = rules[password.length === 0 ? 0 : currentRuleIdx];
+  const rule = displayRules[password.length === 0 ? 0 : currentRuleIdx] || displayRules[0];
   return (
     <div style={{ marginTop: '0.5rem', minHeight: '1.5rem', transition: 'min-height 0.2s' }}>
       <div
