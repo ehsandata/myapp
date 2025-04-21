@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import axios from 'axios';
 import Link from 'next/link';
+import ProjectIcon from '../components/ProjectIcon';
 
 export default function Register() {
   const [username, setUsername] = useState('');
@@ -31,7 +32,7 @@ export default function Register() {
       <form onSubmit={handleSubmit} className="glass-card flex flex-col gap-3">
         <div className="flex flex-col items-center justify-center mb-2 w-full">
   <div className="flex justify-center items-center w-full">
-    <span style={{fontSize:'2.2rem', marginBottom:'0.4rem'}}>📝</span>
+    <ProjectIcon type="register" style={{ marginBottom: '0.4rem' }} width={48} height={48} />
   </div>
   <h2 className="form-title">Create your account</h2>
 </div>
