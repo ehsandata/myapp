@@ -50,7 +50,7 @@ export function PasswordRules({ password }) {
             setVisible(true);
             return idx + 1;
           } else {
-            setVisible(false);
+            setVisible(true); // stay on last rule until all are valid
             return 0;
           }
         });
@@ -61,7 +61,19 @@ export function PasswordRules({ password }) {
 
   if (!password) return null;
 
-  const rule = rules[currentRuleIdx];
+  // If all rules satisfied, show a single green alert
+  const allValid = rules.every(rule => rule.valid);
+  if (allValid) {
+    return (
+      <div style={{ marginTop: '0.5rem', color: '#16a34a', fontSize: '0.97rem', display: 'flex', alignItems: 'center', minHeight: '1.5rem', transition: 'min-height 0.2s' }}>
+        <svg width="18" height="18" viewBox="0 0 20 20" fill="none" style={{ marginRight: 6 }}><circle cx="10" cy="10" r="10" fill="#16a34a"/><path d="M6 10.5L9 13.5L14 8.5" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+        All Password Rules Done.
+      </div>
+    );
+  }
+
+  // Always show the first rule immediately when typing starts
+  const rule = rules[password.length === 0 ? 0 : currentRuleIdx];
   return (
     <div style={{ marginTop: '0.5rem', minHeight: '1.5rem', transition: 'min-height 0.2s' }}>
       <div
