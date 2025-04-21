@@ -25,7 +25,7 @@ export function PasswordRules({ password }) {
     <div style={{ marginTop: '0.5rem', marginBottom: 0 }}>
       <div style={{ display: 'flex', gap: '1.5rem', marginBottom: '0.2rem' }}>
         {rules.slice(0, 2).map((rule, idx) => (
-          <div key={idx} style={{ display: 'flex', alignItems: 'center', color: rule.valid ? '#16a34a' : '#dc2626', fontSize: '0.97rem' }}>
+          <div key={idx} style={{ display: 'flex', alignItems: 'center', color: rule.valid ? '#16a34a' : '#dc2626', fontSize: '0.89rem' }}>
             {rule.valid ? (
               <svg width="18" height="18" viewBox="0 0 20 20" fill="none" style={{ marginRight: 6 }}><circle cx="10" cy="10" r="10" fill="#16a34a"/><path d="M6 10.5L9 13.5L14 8.5" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
             ) : (
@@ -37,7 +37,7 @@ export function PasswordRules({ password }) {
       </div>
       <div style={{ display: 'flex', gap: '1.5rem' }}>
         {rules.slice(2).map((rule, idx) => (
-          <div key={idx} style={{ display: 'flex', alignItems: 'center', color: rule.valid ? '#16a34a' : '#dc2626', fontSize: '0.97rem' }}>
+          <div key={idx} style={{ display: 'flex', alignItems: 'center', color: rule.valid ? '#16a34a' : '#dc2626', fontSize: '0.89rem' }}>
             {rule.valid ? (
               <svg width="18" height="18" viewBox="0 0 20 20" fill="none" style={{ marginRight: 6 }}><circle cx="10" cy="10" r="10" fill="#16a34a"/><path d="M6 10.5L9 13.5L14 8.5" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
             ) : (
