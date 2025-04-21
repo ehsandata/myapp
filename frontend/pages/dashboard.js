@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import ProjectIcon from '../components/ProjectIcon';
 
 export default function Dashboard() {
   const router = useRouter();
@@ -38,7 +39,7 @@ export default function Dashboard() {
   return (
     <main className="min-h-screen flex flex-col items-center justify-center">
       <div className="glass-card flex flex-col items-center gap-3">
-        <span style={{fontSize:'2.2rem', marginBottom:'0.4rem'}}>📊</span>
+        <ProjectIcon type="dashboard" style={{ marginBottom: '0.4rem' }} width={48} height={48} />
         <h2 className="form-title">Dashboard</h2>
         <div className="mb-2 text-lg font-semibold">Welcome, {user.username || user.email}!</div>
         <div className="mb-2 text-base text-gray-300">Email: <span className="text-white">{user.email}</span></div>

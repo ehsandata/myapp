@@ -28,6 +28,21 @@ export default function ProjectIcon({ type = 'login', style = {}, width = 48, he
       </span>
     );
   }
+  if (type === 'dashboard') {
+    return (
+      <span style={{ ...style, display: 'inline-block' }}>
+        <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width={width} height={height} viewBox="0 0 128 128">
+          <path fill="#fff" d="M124,127H4V14C4,8.5,8.5,4,14,4h100c5.5,0,10,4.5,10,10V127z"></path>
+          <path fill="#444b54" d="M4,127c-1.7,0-3-1.3-3-3V41c0-1.7,1.3-3,3-3s3,1.3,3,3v83C7,125.7,5.7,127,4,127z"></path>
+          <path fill="#444b54" d="M124,127c-1.7,0-3-1.3-3-3V14c0-3.9-3.1-7-7-7H14c-3.9,0-7,3.1-7,7v11h104c1.7,0,3,1.3,3,3s-1.3,3-3,3H4 c-1.7,0-3-1.3-3-3V14C1,6.8,6.8,1,14,1h100c7.2,0,13,5.8,13,13v110C127,125.7,125.7,127,124,127z"></path>
+          <circle cx="16" cy="16" r="3" fill="#444b54"></circle>
+          <circle cx="26" cy="16" r="3" fill="#444b54"></circle>
+          <circle cx="36" cy="16" r="3" fill="#444b54"></circle>
+          <path fill="#71c2ff" d="M111,121h-4V61c0-1.7-1.3-3-3-3H86c-1.7,0-3,1.3-3,3v60h-6v-20c0-1.7-1.3-3-3-3H56c-1.7,0-3,1.3-3,3v20h-6V91 c0-1.7-1.3-3-3-3H26c-1.7,0-3,1.3-3,3v30h-4c-1.7,0-3,1.3-3,3s1.3,3,3,3h7h18h12h18h12h18h7c1.7,0,3-1.3,3-3S112.7,121,111,121z"></path>
+        </svg>
+      </span>
+    );
+  }
   // Placeholder for future icons
   return null;
 }
