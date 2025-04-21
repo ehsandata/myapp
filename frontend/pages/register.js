@@ -3,7 +3,7 @@ import axios from 'axios';
 import Link from 'next/link';
 import ProjectIcon from '../components/ProjectIcon';
 
-import { PasswordRules } from '../components/Functions';
+import { PasswordRules, isPasswordValid } from '../components/Functions';
 
 
 
@@ -19,11 +19,18 @@ export default function Register() {
     e.preventDefault();
     setError('');
     setSuccess('');
+    if (!isPasswordValid(password)) {
+      setError('Password does not meet all requirements.');
+      return;
+    }
     setLoading(true);
     try {
       const apiBase = process.env.NEXT_PUBLIC_API_BASE || 'http://localhost:4000';
       const res = await axios.post(`${apiBase}/api/register`, { username, email, password });
       setSuccess(res.data.message);
+      setTimeout(() => {
+        window.location.href = '/'; // Redirect to login after 3 sec
+      }, 3000);
     } catch (err) {
       setError(err.response?.data?.message || 'Registration failed');
     } finally {
@@ -69,7 +76,7 @@ export default function Register() {
         <PasswordRules password={password} />
         <button
           type="submit"
-          disabled={loading}
+          disabled={loading || !isPasswordValid(password)}
         >
           {loading ? 'Registering...' : 'Register'}
         </button>
