@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import axios from 'axios';
+import ProjectIcon from '../components/ProjectIcon';
 
 
 export default function Home() {
@@ -35,7 +36,7 @@ export default function Home() {
       <form onSubmit={handleSubmit} className="glass-card flex flex-col gap-3 mx-2 mb-4">
         <div className="flex flex-col items-center justify-center mb-2 w-full">
   <div className="flex justify-center items-center w-full">
-    <span style={{fontSize:'2.2rem', marginBottom:'0.4rem'}}>🔒</span>
+    <ProjectIcon type="login" style={{ marginBottom: '0.4rem' }} width={48} height={48} />
   </div>
   <h2 className="form-title">{success === 'Login successful!' ? 'Checking Secure Connection' : 'Sign in to your account'}</h2>
 </div>
