@@ -16,14 +16,12 @@ export default function Home() {
     setLoading(true);
     try {
       const apiBase = process.env.NEXT_PUBLIC_API_BASE || 'http://localhost:4000';
-      const res = await axios.post(`${apiBase}/api/login`, { email, password });
+      const res = await axios.post(`${apiBase}/api/login`, { email, password }, { withCredentials: true });
       setSuccess('Login successful!');
       if (res.data.user) {
         setTimeout(() => {
-          localStorage.setItem('user', JSON.stringify(res.data.user));
-          localStorage.setItem('loginTime', new Date().toLocaleString());
           window.location.href = '/dashboard';
-        }, 3000);
+        }, 1500);
       }
     } catch (err) {
       setError(err.response?.data?.message || 'Login failed');

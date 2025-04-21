@@ -4,26 +4,35 @@ import { useEffect, useState } from 'react';
 export default function Dashboard() {
   const router = useRouter();
   const [user, setUser] = useState(null);
-  const [loginTime, setLoginTime] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Retrieve user info and login time from localStorage
-    const userData = localStorage.getItem('user');
-    const loginAt = localStorage.getItem('loginTime');
-    if (!userData || !loginAt) {
-      router.replace('/');
-      return;
-    }
-    setUser(JSON.parse(userData));
-    setLoginTime(loginAt);
+    const fetchUser = async () => {
+      try {
+        const apiBase = process.env.NEXT_PUBLIC_API_BASE || 'http://localhost:4000';
+        const res = await fetch(`${apiBase}/api/me`, { credentials: 'include' });
+        if (res.status === 401) {
+          router.replace('/');
+          return;
+        }
+        const data = await res.json();
+        setUser(data.user);
+      } catch {
+        router.replace('/');
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchUser();
   }, [router]);
 
-  const handleLogout = () => {
-    localStorage.removeItem('user');
-    localStorage.removeItem('loginTime');
+  const handleLogout = async () => {
+    const apiBase = process.env.NEXT_PUBLIC_API_BASE || 'http://localhost:4000';
+    await fetch(`${apiBase}/api/logout`, { method: 'POST', credentials: 'include' });
     router.replace('/');
   };
 
+  if (loading) return null;
   if (!user) return null;
 
   return (
@@ -33,7 +42,6 @@ export default function Dashboard() {
         <h2 className="form-title">Dashboard</h2>
         <div className="mb-2 text-lg font-semibold">Welcome, {user.username || user.email}!</div>
         <div className="mb-2 text-base text-gray-300">Email: <span className="text-white">{user.email}</span></div>
-        <div className="mb-4 text-base text-gray-300">Login time: <span className="text-white">{loginTime}</span></div>
         <button
           type="button"
           onClick={handleLogout}
