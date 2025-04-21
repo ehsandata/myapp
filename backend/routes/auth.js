@@ -58,9 +58,12 @@ router.post('/login',
     if (!valid) {
       return res.status(400).json({ message: 'Invalid credentials.' });
     }
+    // Update lastLogin
+    user.lastLogin = new Date();
+    await user.save();
     // Generate JWT
     const token = jwt.sign(
-      { id: user._id, username: user.username, email: user.email },
+      { id: user._id, username: user.username, email: user.email, lastLogin: user.lastLogin },
       JWT_SECRET,
       { expiresIn: JWT_EXPIRES_IN }
     );
@@ -71,7 +74,7 @@ router.post('/login',
       sameSite: 'strict',
       maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
     });
-    return res.status(200).json({ message: 'Login successful.', user: { id: user._id, username: user.username, email: user.email } });
+    return res.status(200).json({ message: 'Login successful.', user: { id: user._id, username: user.username, email: user.email, lastLogin: user.lastLogin } });
   } catch (err) {
     return res.status(500).json({ message: 'Server error.' });
   }
@@ -85,7 +88,7 @@ router.get('/me', (req, res) => {
   }
   try {
     const decoded = jwt.verify(token, JWT_SECRET);
-    return res.status(200).json({ user: { id: decoded.id, username: decoded.username, email: decoded.email } });
+    return res.status(200).json({ user: { id: decoded.id, username: decoded.username, email: decoded.email, lastLogin: decoded.lastLogin } });
   } catch (err) {
     return res.status(401).json({ message: 'Invalid token.' });
   }

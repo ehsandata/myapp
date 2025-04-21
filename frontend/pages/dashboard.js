@@ -42,6 +42,11 @@ export default function Dashboard() {
         <h2 className="form-title">Dashboard</h2>
         <div className="mb-2 text-lg font-semibold">Welcome, {user.username || user.email}!</div>
         <div className="mb-2 text-base text-gray-300">Email: <span className="text-white">{user.email}</span></div>
+        {user.lastLogin && (
+          <div className="mb-4 text-base text-gray-300">
+            Last login: <span className="text-white">{new Date(user.lastLogin).toLocaleString()}</span>
+          </div>
+        )}
         <button
           type="button"
           onClick={handleLogout}
