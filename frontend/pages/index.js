@@ -35,10 +35,12 @@ export default function Home() {
   return (
     <main className="min-h-screen flex flex-col items-center justify-center">
       <form onSubmit={handleSubmit} className="glass-card flex flex-col gap-3 mx-2 mb-4">
-        <div className="flex flex-col items-center mb-2">
-          <span style={{fontSize:'2.2rem', marginBottom:'0.4rem'}}>🔒</span>
-          <h2 className="form-title">{success === 'Login successful!' ? 'Checking Secure Connection' : 'Sign in to your account'}</h2>
-        </div>
+        <div className="flex flex-col items-center justify-center mb-2 w-full">
+  <div className="flex justify-center items-center w-full">
+    <span style={{fontSize:'2.2rem', marginBottom:'0.4rem'}}>🔒</span>
+  </div>
+  <h2 className="form-title">{success === 'Login successful!' ? 'Checking Secure Connection' : 'Sign in to your account'}</h2>
+</div>
         {error && <div className="alert alert-error">{error}</div>}
         {success === 'Login successful!' ? (
           <div className="alert alert-success">{success}</div>
