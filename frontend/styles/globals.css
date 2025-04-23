@@ -193,13 +193,15 @@ button:disabled {
   margin-bottom: 0.7rem;
   text-align: center;
 }
-.alert-left {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  text-align: left;
-  margin-left: 0;
-  margin-bottom: 0.5rem;
+.alert-left, .glass-card .alert-left, .alert.alert-left {
+  display: flex !important;
+  justify-content: flex-start !important;
+  align-items: center !important;
+  text-align: left !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  margin-bottom: 0.5rem !important;
+  width: 100% !important;
 }
 
 .alert-error {
