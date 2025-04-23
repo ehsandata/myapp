@@ -12,6 +12,8 @@ export function isPasswordValid(password) {
 
 import { useState, useEffect } from 'react';
 
+import '../styles/globals.css';
+
 export function PasswordRules({ password }) {
   const rules = [
     {
@@ -41,65 +43,55 @@ export function PasswordRules({ password }) {
 
   useEffect(() => {
     if (!password) {
-      setCurrentRuleIdx(0);
-      setVisible(false);
+      setCurrentVisible(0);
       return;
     }
-    setVisible(true);
-    setCurrentRuleIdx(0);
+    // Reveal rules one by one as user types
+    let idx = 1;
+    setCurrentVisible(idx);
     const interval = setInterval(() => {
-      setVisible(false);
-      setTimeout(() => {
-        setCurrentRuleIdx(idx => {
-          if (idx < displayRules.length - 1) {
-            setVisible(true);
-            return idx + 1;
-          } else {
-            setVisible(true); // stay on last rule until all are valid
-            return 0;
-          }
-        });
-      }, 400); // fade out duration
-    }, 2000);
+      idx++;
+      if (idx <= rules.length) {
+        setCurrentVisible(idx);
+      } else {
+        clearInterval(interval);
+      }
+    }, 350);
     return () => clearInterval(interval);
-  }, [password, missingRules.length, acceptedRules.length]);
+  }, [password]);
 
   if (!password) return null;
 
-  // If all rules satisfied, show a single green alert
   const allValid = rules.every(rule => rule.valid);
   if (allValid) {
     return (
-      <div style={{ marginTop: '0.5rem', color: '#16a34a', fontSize: '0.97rem', display: 'flex', alignItems: 'center', minHeight: '1.5rem', transition: 'min-height 0.2s' }}>
-        <svg width="18" height="18" viewBox="0 0 20 20" fill="none" style={{ marginRight: 6 }}><circle cx="10" cy="10" r="10" fill="#16a34a"/><path d="M6 10.5L9 13.5L14 8.5" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+      <div className="pw-rules-done">
+        <svg className="pw-rule-icon" width="18" height="18" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="10" fill="#16a34a"/><path d="M6 10.5L9 13.5L14 8.5" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
         All Password Rules Done.
       </div>
     );
   }
 
-  // Always show the first rule immediately when typing starts
-  const rule = displayRules[password.length === 0 ? 0 : currentRuleIdx] || displayRules[0];
   return (
-    <div style={{ marginTop: '0.5rem', minHeight: '1.5rem', transition: 'min-height 0.2s' }}>
-      <div
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          color: rule.valid ? '#16a34a' : '#dc2626',
-          fontSize: '0.89rem',
-          opacity: visible ? 1 : 0,
-          transition: 'opacity 0.4s',
-          minHeight: '1.2em',
-        }}
-      >
-        {rule.valid ? (
-          <svg width="18" height="18" viewBox="0 0 20 20" fill="none" style={{ marginRight: 6 }}><circle cx="10" cy="10" r="10" fill="#16a34a"/><path d="M6 10.5L9 13.5L14 8.5" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
-        ) : (
-          <svg width="18" height="18" viewBox="0 0 20 20" fill="none" style={{ marginRight: 6 }}><circle cx="10" cy="10" r="10" fill="#dc2626"/><path d="M7 7L13 13M13 7L7 13" stroke="#fff" strokeWidth="2" strokeLinecap="round"/></svg>
-        )}
-        {rule.label}
-      </div>
+    <div className="pw-rules-list">
+      {rules.slice(0, currentVisible).map((rule, idx) => (
+        <div
+          key={rule.label}
+          className={`pw-rule-row${rule.valid ? ' pw-rule-valid' : ' pw-rule-invalid'}`}
+        >
+          <span className={`pw-rule-icon${rule.valid ? ' pw-rule-icon-valid' : ' pw-rule-icon-invalid'}`}>
+            {rule.valid ? (
+              <svg width="18" height="18" viewBox="0 0 20 20" fill="none">
+                <circle cx="10" cy="10" r="10" fill="#16a34a"/>
+                <path d="M6 10.5L9 13.5L14 8.5" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            ) : (
+              <svg width="18" height="18" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="10" fill="#dc2626"/><path d="M7 7L13 13M13 7L7 13" stroke="#fff" strokeWidth="2" strokeLinecap="round"/></svg>
+            )}
+          </span>
+          <span className="pw-rule-label">{rule.label}</span>
+        </div>
+      ))}
     </div>
   );
 }
-
