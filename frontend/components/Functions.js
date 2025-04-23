@@ -20,20 +20,19 @@ export function PasswordRules({ password }) {
       valid: password.length >= 8,
     },
     {
-      label: 'Contains lowercase letter',
+      label: 'lowercase letter',
       valid: /[a-z]/.test(password),
     },
     {
-      label: 'Contains uppercase letter',
+      label: 'uppercase letter',
       valid: /[A-Z]/.test(password),
     },
     {
-      label: 'Contains special character',
+      label: 'special character',
       valid: /[^A-Za-z0-9]/.test(password),
     },
   ];
-  const [currentRuleIdx, setCurrentRuleIdx] = useState(0);
-  const [visible, setVisible] = useState(false);
+  const [prevValid, setPrevValid] = useState([false, false, false, false]);
 
   // Reorder rules: missing first, then accepted
   const missingRules = rules.filter(r => !r.valid);
@@ -41,22 +40,8 @@ export function PasswordRules({ password }) {
   const displayRules = [...missingRules, ...acceptedRules];
 
   useEffect(() => {
-    if (!password) {
-      setCurrentVisible(0);
-      return;
-    }
-    // Reveal rules one by one as user types
-    let idx = 1;
-    setCurrentVisible(idx);
-    const interval = setInterval(() => {
-      idx++;
-      if (idx <= rules.length) {
-        setCurrentVisible(idx);
-      } else {
-        clearInterval(interval);
-      }
-    }, 350);
-    return () => clearInterval(interval);
+    setPrevValid(rules.map(r => r.valid));
+    // eslint-disable-next-line
   }, [password]);
 
   if (!password) return null;
@@ -73,24 +58,28 @@ export function PasswordRules({ password }) {
 
   return (
     <div className="pw-rules-list">
-      {rules.slice(0, currentVisible).map((rule, idx) => (
-        <div
-          key={rule.label}
-          className={`pw-rule-row${rule.valid ? ' pw-rule-valid' : ' pw-rule-invalid'}`}
-        >
-          <span className={`pw-rule-icon${rule.valid ? ' pw-rule-icon-valid' : ' pw-rule-icon-invalid'}`}>
-            {rule.valid ? (
-              <svg width="18" height="18" viewBox="0 0 20 20" fill="none">
-                <circle cx="10" cy="10" r="10" fill="#16a34a"/>
-                <path d="M6 10.5L9 13.5L14 8.5" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-            ) : (
-              <svg width="18" height="18" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="10" fill="#dc2626"/><path d="M7 7L13 13M13 7L7 13" stroke="#fff" strokeWidth="2" strokeLinecap="round"/></svg>
-            )}
-          </span>
-          <span className="pw-rule-label">{rule.label}</span>
-        </div>
-      ))}
+      {rules.map((rule, idx) => {
+        // Animate only if rule validity changed
+        const justChanged = prevValid[idx] !== rule.valid;
+        return (
+          <div
+            key={rule.label}
+            className={`pw-rule-row${rule.valid ? ' pw-rule-valid' : ' pw-rule-invalid'}`}
+          >
+            <span className={`pw-rule-icon${rule.valid ? ' pw-rule-icon-valid' : ' pw-rule-icon-invalid'}${justChanged ? ' pw-rule-icon-animate' : ''}`}>
+              {rule.valid ? (
+                <svg width="18" height="18" viewBox="0 0 20 20" fill="none">
+                  <circle cx="10" cy="10" r="10" fill="#16a34a"/>
+                  <path d="M6 10.5L9 13.5L14 8.5" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              ) : (
+                <svg width="18" height="18" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="10" fill="#dc2626"/><path d="M7 7L13 13M13 7L7 13" stroke="#fff" strokeWidth="2" strokeLinecap="round"/></svg>
+              )}
+            </span>
+            <span className="pw-rule-label">{rule.label}</span>
+          </div>
+        );
+      })}
     </div>
   );
 }

@@ -32,6 +32,8 @@
 }
 .pw-rule-icon-valid {
   opacity: 1;
+}
+.pw-rule-icon-animate {
   animation: pw-check-bounce 0.4s;
 }
 .pw-rule-icon-invalid {
@@ -191,6 +193,15 @@ button:disabled {
   margin-bottom: 0.7rem;
   text-align: center;
 }
+.alert-left {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  text-align: left;
+  margin-left: 0;
+  margin-bottom: 0.5rem;
+}
+
 .alert-error {
   background: rgba(239,68,68,0.15);
   color: #ef4444;
