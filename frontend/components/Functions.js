@@ -12,7 +12,6 @@ export function isPasswordValid(password) {
 
 import { useState, useEffect } from 'react';
 
-import '../styles/globals.css';
 
 export function PasswordRules({ password }) {
   const rules = [
