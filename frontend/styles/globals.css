@@ -1,3 +1,15 @@
+.pw-rules-list.pw-rules-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+.pw-rules-row-flex {
+  display: flex;
+  flex-direction: row;
+  gap: 0.6rem;
+  width: 100%;
+}
+
 .pw-rules-list {
   margin-top: 0.5rem;
   min-height: 2.5rem;
@@ -95,12 +107,49 @@ main {
   align-items: center;
 }
 
+.form-input, input[type="text"], input[type="email"], input[type="password"], input[type="tel"],select {
+  width: 100%;
+  padding: 0.7rem 0.9rem;
+  border-radius: 0.6rem;
+  border: 1.2px solid #23272f;
+  background: rgba(36,37,46,0.85);
+  color: #fff;
+  font-size: 1.02rem;
+  margin-bottom: 0.12rem;
+  outline: none;
+  transition: border 0.2s, box-shadow 0.2s;
+  box-sizing: border-box;
+}
+.form-input:focus, .form-select:focus, input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focus, input[type="tel"]:focus {
+  border: 1.2px solid #6366f1;
+  box-shadow: 0 0 0 2px #6366f120;
+}
+.form-select, select {
+  width: 100%;
+  padding: 0.7rem 0.9rem;
+  border-radius: 0.6rem;
+  border: 1.2px solid #23272f;
+  background: rgba(36,37,46,0.85);
+  color: #fff;
+  font-size: 1.02rem;
+  margin-bottom: 0.12rem;
+  outline: none;
+  transition: border 0.2s, box-shadow 0.2s;
+  box-sizing: border-box;
+  appearance: none;
+}
+.form-select:disabled, .form-input:disabled {
+  opacity: 0.6;
+  background: #23272f;
+  cursor: not-allowed;
+}
+
 @media (max-width: 480px) {
   .glass-card {
     max-width: 98vw;
     padding: 1.3rem 0.6rem 1.2rem 0.6rem;
   }
-  input[type="email"], input[type="password"], input[type="text"] {
+  input[type="text"], input[type="email"], input[type="password"], input[type="tel"],select {
     max-width: 98vw;
     font-size: 0.98rem;
     padding: 0.7rem 0.7rem;
@@ -124,7 +173,7 @@ main {
   text-align: center;
 }
 
-input[type="email"], input[type="password"], input[type="text"] {
+input[type="text"], input[type="email"], input[type="password"], input[type="tel"],select {
   background: rgba(255,255,255,0.06);
   border: 1px solid rgba(255,255,255,0.08);
   color: #fff;
@@ -222,5 +271,32 @@ button:disabled {
   }
   .form-title {
     font-size: 1.5rem;
+  }
+}
+
+.password-rules-fade-box {
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  background: #f9fafb;
+  margin-bottom: 1rem;
+  opacity: 0.7;
+  animation: fadeDown 0.5s;
+  /* will fade in on mount */
+  transition: opacity 0.5s;
+}
+.password-rules-fadeout {
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+
+@keyframes fadeDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 0.7;
+    transform: translateY(0);
   }
 }

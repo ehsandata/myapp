@@ -16,7 +16,7 @@ import { useState, useEffect } from 'react';
 export function PasswordRules({ password }) {
   const rules = [
     {
-      label: 'At least 8 characters',
+      label: '8 characters',
       valid: password.length >= 8,
     },
     {
@@ -28,7 +28,7 @@ export function PasswordRules({ password }) {
       valid: /[A-Z]/.test(password),
     },
     {
-      label: 'special character',
+      label: 'special letter',
       valid: /[^A-Za-z0-9]/.test(password),
     },
   ];
@@ -57,29 +57,35 @@ export function PasswordRules({ password }) {
   }
 
   return (
-    <div className="pw-rules-list">
-      {rules.map((rule, idx) => {
-        // Animate only if rule validity changed
-        const justChanged = prevValid[idx] !== rule.valid;
-        return (
-          <div
-            key={rule.label}
-            className={`pw-rule-row${rule.valid ? ' pw-rule-valid' : ' pw-rule-invalid'}`}
-          >
-            <span className={`pw-rule-icon${rule.valid ? ' pw-rule-icon-valid' : ' pw-rule-icon-invalid'}${justChanged ? ' pw-rule-icon-animate' : ''}`}>
-              {rule.valid ? (
-                <svg width="18" height="18" viewBox="0 0 20 20" fill="none">
-                  <circle cx="10" cy="10" r="10" fill="#16a34a"/>
-                  <path d="M6 10.5L9 13.5L14 8.5" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-              ) : (
-                <svg width="18" height="18" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="10" fill="#dc2626"/><path d="M7 7L13 13M13 7L7 13" stroke="#fff" strokeWidth="2" strokeLinecap="round"/></svg>
-              )}
-            </span>
-            <span className="pw-rule-label">{rule.label}</span>
-          </div>
-        );
-      })}
+    <div className="pw-rules-list pw-rules-grid">
+      {[0, 1].map(rowIdx => (
+        <div className="pw-rules-row-flex" key={rowIdx}>
+          {[0, 1].map(colIdx => {
+            const idx = rowIdx * 2 + colIdx;
+            const rule = rules[idx];
+            const justChanged = prevValid[idx] !== rule.valid;
+            return (
+              <div
+                key={rule.label}
+                className={`pw-rule-row${rule.valid ? ' pw-rule-valid' : ' pw-rule-invalid'}`}
+                style={{ flex: 1, minWidth: 0 }}
+              >
+                <span className={`pw-rule-icon${rule.valid ? ' pw-rule-icon-valid' : ' pw-rule-icon-invalid'}${justChanged ? ' pw-rule-icon-animate' : ''}`}>
+                  {rule.valid ? (
+                    <svg width="18" height="18" viewBox="0 0 20 20" fill="none">
+                      <circle cx="10" cy="10" r="10" fill="#16a34a"/>
+                      <path d="M6 10.5L9 13.5L14 8.5" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  ) : (
+                    <svg width="18" height="18" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="10" fill="#dc2626"/><path d="M7 7L13 13M13 7L7 13" stroke="#fff" strokeWidth="2" strokeLinecap="round"/></svg>
+                  )}
+                </span>
+                <span className="pw-rule-label">{rule.label}</span>
+              </div>
+            );
+          })}
+        </div>
+      ))}
     </div>
   );
 }

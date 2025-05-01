@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import Link from 'next/link';
 import ProjectIcon from '../components/ProjectIcon';
@@ -14,6 +14,50 @@ export default function Register() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+  const [showPwRules, setShowPwRules] = useState(false);
+  const [fadeOut, setFadeOut] = useState(false);
+  const fadeTimeout = useRef(null);
+  const unmountTimeout = useRef(null);
+
+  // Show rules box when password starts being typed
+  useEffect(() => {
+    if (password) {
+      setShowPwRules(true);
+      setFadeOut(false); // reset fade on typing
+      if (fadeTimeout.current) {
+        clearTimeout(fadeTimeout.current);
+        fadeTimeout.current = null;
+      }
+      if (unmountTimeout.current) {
+        clearTimeout(unmountTimeout.current);
+        unmountTimeout.current = null;
+      }
+    } else {
+      setShowPwRules(false);
+    }
+    // cleanup on unmount
+    return () => {
+      if (fadeTimeout.current) clearTimeout(fadeTimeout.current);
+      if (unmountTimeout.current) clearTimeout(unmountTimeout.current);
+    };
+  }, [password]);
+
+  useEffect(() => {
+    // When all rules are valid, fade out after 3s
+    if (password && isPasswordValid(password) && showPwRules) {
+      fadeTimeout.current = setTimeout(() => {
+        setFadeOut(true);
+        // Remove box after fade out duration (0.5s)
+        unmountTimeout.current = setTimeout(() => setShowPwRules(false), 500);
+      }, 3000);
+    }
+    // cleanup on unmount
+    return () => {
+      if (fadeTimeout.current) clearTimeout(fadeTimeout.current);
+      if (unmountTimeout.current) clearTimeout(unmountTimeout.current);
+    };
+    // eslint-disable-next-line
+  }, [password, showPwRules]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -73,7 +117,14 @@ export default function Register() {
           onChange={e => setPassword(e.target.value)}
           required
         />
-        <PasswordRules password={password} />
+        {showPwRules && (
+          <div
+            className={`password-rules-fade-box${fadeOut ? ' password-rules-fadeout' : ''}`}
+            style={{ opacity: 0.7 }}
+          >
+            <PasswordRules password={password} />
+          </div>
+        )}
         <button
           type="submit"
           disabled={loading || !isPasswordValid(password)}
